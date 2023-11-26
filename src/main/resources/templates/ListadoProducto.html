@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Productos</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .table th, .table td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .table tbody tr:hover {
+            background-color: #e0e0e0;
+            transition: 0.3s;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-success {
+            background-color: #2ecc71;
+            color: #fff;
+            border: 1px solid #27ae60;
+        }
+
+        .btn-primary {
+            background-color: #1774a1;
+            color: #fff;
+            border: 1px solid #27ae60;
+        }
+
+        .btn-danger {
+            background-color: #e74c3c;
+            color: #fff;
+            border: 1px solid #c0392b;
+        }
+    </style>
+</head>
+<body>
+<h1 style="text-align: center">Listados de Productos</h1>
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Precio Venta</th>
+            <th>Stock</th>
+            <th>Precio Compra</th>
+            <th>Estado</th>
+            <th>Descripción</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="pro : ${listado}">
+                <td th:text="${pro.IDPRODUCTOCL3}"></td>
+                <td th:text="${pro.NOMBRECL3}"></td>
+                <td th:text="${pro.PRECIOVENTACL3}"></td>
+                <td th:text="${pro.STOCK}"></td>
+                <td th:text="${pro.PRECIOCOMPCL3}"></td>
+                <td th:text="${pro.ESTADOCL3}"></td>
+                <td th:text="${pro.DESCRIPCL3}"></td>
+                <td>
+                    <div style="display: flex; gap: 10px">
+                        <a th:href="@{'/EditarProducto/' + ${pro.IDPRODUCTOCL3}}" class="btn btn-success">Editar</a> |
+                        <form th:action="@{/DeleteProducto}" method="post">
+                            <input type="hidden" name="productoId" th:value="${pro.IDPRODUCTOCL3}">
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </br>
+    <a th:href="@{/AgregarProducto}" class="btn btn-primary">Registrar Producto</a>
+</div>
+</body>
+</html>
